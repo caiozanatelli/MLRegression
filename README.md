@@ -1,2 +1,1 @@
-# DNN-Regression
-DNN-Regression
+# Regression Module

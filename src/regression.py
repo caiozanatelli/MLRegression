@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn import datasets
 from sklearn import svm
+from svm import SVR
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.neural_network import MLPRegressor
@@ -28,7 +29,7 @@ class Regression:
         if self.__algorithm == 'nnet':   # Neural Network Regression
             self.__model = MLPRegressor(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1)
         elif self.__algorithm == 'svr':  # SVR
-            pass
+            self.__model = SVR(gamma='scale', C=1.0, epsilon=0.2)
         elif self.__algorithm == 'dt':   # Decision Tree
             pass
         elif self.__algorithm == 'gbrt': # Gradient Boosted Regression Trees

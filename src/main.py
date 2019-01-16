@@ -12,7 +12,7 @@ def parse_args():
     parser.add_argument('-a', '--algorithm', action='store', type=str,
                         choices=REG_ALGORITHMS, default='nnet',
                         help='Regression algorithm to be used for prediction')
-    parser.add_argument('-f', '--features', action='store', type=int, default=8,
+    parser.add_argument('-f', '--features', action='store', type=int, default=10,
                         help='Number of features in the database')
     return parser.parse_args()
 
@@ -23,4 +23,5 @@ if __name__ == '__main__':
     # Train model
     regression.fit(True)
     # Predict output
-    print(regression.predict([[0.80, 371670.21, 4, 5.5, 3924475904, 4142837760, 6234112, 0.0]]))
+    #print(regression.predict([[0.80, 371670.21, 4, 5.5, 3924475904, 4142837760, 6234112, 0.0]]))
+    print(regression.predict([[10.1,1214873.28,4.0,5.3,3923419136.0,4142837760.0,200138752.0,0.0,0.0,1080.0]]))

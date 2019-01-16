@@ -26,8 +26,8 @@ class Regression:
         self.__model = None
 
     def fit(self, useCrossValidation):
-        X = np.loadtxt(self.__dbpath, delimiter=',', usecols=np.arange(0, self.__features), skiprows=1)
-        y = np.loadtxt(self.__dbpath, delimiter=',', usecols=(-1), skiprows=1)
+        X = np.loadtxt(self.__dbpath, delimiter=',', usecols=np.arange(0, self.__features))
+        y = np.loadtxt(self.__dbpath, delimiter=',', usecols=(-1))
         X_test, y_test = None, None
 
         '''
@@ -37,7 +37,7 @@ class Regression:
             self.__model = MLPRegressor(
                 solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1)
         elif self.__algorithm == 'svr':  # SVR
-            self.__model = SVR(gamma='scale', C=1.0, epsilon=0.2)
+            self.__model = SVR(gamma=0.00001, C=1.0, epsilon=0.2)
         elif self.__algorithm == 'dt':   # Decision Tree
             self.__model = DecisionTreeRegressor()
         elif self.__algorithm == 'gbrt': # Gradient Boosted Regression Trees

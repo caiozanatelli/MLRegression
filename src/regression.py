@@ -74,7 +74,7 @@ class Regression:
             print('Error. Algorithm not set.')
             sys.exit(1)
         else:
-            return self.__model.predict(xarray)
+            return self.__model.predict(xarray)[0]
 
     @property
     def features(self):

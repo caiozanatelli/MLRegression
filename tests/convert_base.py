@@ -30,17 +30,6 @@ if __name__ == '__main__':
         trans_offset.append(load_csv(PATH_PREFIX + 'transmission_capture_' + res + '.csv'))
         obs_offset.append(load_csv(PATH_PREFIX + 'transmission_observer_' + res + '.csv'))
 
-    #for i in range(len(bases)):
-    #    for j in range(1, len(bases[i])):
-    #        if len(bases[i][j]) == 11:
-    #            print("AAAAAAAAAAA 11: " + RESOLUTIONS[i])
-    #        if len(bases[i][j]) == 13:
-    #            print("AAAAAAAAAAA 13: " + RESOLUTIONS[i])
-            #print(len(trans_offset[i][j]))
-            #print(len(obs_offset[i][j]))
-
-
-
     for i in range(len(bases)):
         for j in range(1, len(bases[i])):
             #print(bases[i][j][-1])

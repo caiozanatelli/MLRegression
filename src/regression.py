@@ -12,7 +12,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import LinearSVR
 from sklearn.datasets import make_regression
 from sklearn.svm import NuSVR
-
+from sklearn.metrics import mean_squared_error
+from math import sqrt
 REG_ALGORITHMS = ['nnet', 'lsvr', 'svr', 'nusvr', 'dt', 'gbrt', 'knn', 'rfr']
 
 class Regression:
@@ -28,7 +29,7 @@ class Regression:
         self.__dbpath = dbpath
         self.__model = None
 
-    def fit(self, useCrossValidation):
+    def fit(self):
         X = np.loadtxt(self.__dbpath, delimiter=',', usecols=np.arange(0, self.__features))
         y = np.loadtxt(self.__dbpath, delimiter=',', usecols=(-1))
         X_test, y_test = None, None
@@ -61,13 +62,15 @@ class Regression:
             sys.exit(1)
 
         #Case - Uses cross validation, change the variables to fit.
-        if useCrossValidation:
-            X, X_test, y, y_test = train_test_split(
-                X, y, test_size=0.20, random_state=90, shuffle=True)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=90, shuffle=True)
 
-        self.__model.fit(X, y)
+        self.__model.fit(X_train, y_train)
 
-        return X, X_test, y, y_test
+        # Root mean square error
+        rms = sqrt(mean_squared_error(y_test, self.__model.predict(X_test)))
+        print(rms)
+
+        #return X, X_test, y, y_test
 
     def predict(self, xarray):
         if not self.__model:

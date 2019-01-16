@@ -1,0 +1,12 @@
+$ python src/main.py -i tests/database_saturday.csv -a nnet
+>>> [0.02555792]
+$ python src/main.py -i tests/database_saturday.csv -a svr
+>>> [0.2200677]
+$ python src/main.py -i tests/database_saturday.csv -a dt
+>>> [0.07346702]
+$ python src/main.py -i tests/database_saturday.csv -a gbrt
+>>> [0.10960971]
+$ python src/main.py -i tests/database_saturday.csv -a knn
+>>> [0.01503692]
+$ python src/main.py -i tests/database_saturday.csv -a rfr
+>>> [0.21055689]

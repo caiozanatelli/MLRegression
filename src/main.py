@@ -21,6 +21,6 @@ if __name__ == '__main__':
     # Build model
     regression = Regression(args.input, args.algorithm, args.features)
     # Train model
-    regression.fit()
+    regression.fit(True)
     # Predict output
     print(regression.predict([[0.80, 371670.21, 4, 5.5, 3924475904, 4142837760, 6234112, 0.0]]))

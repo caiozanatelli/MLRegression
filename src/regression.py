@@ -9,8 +9,11 @@ from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.preprocessing import StandardScaler
+from sklearn.svm import LinearSVR
+from sklearn.datasets import make_regression
+from sklearn.svm import NuSVR
 
-REG_ALGORITHMS = ['nnet', 'svr', 'dt', 'gbrt', 'knn', 'rfr']
+REG_ALGORITHMS = ['nnet', 'lsvr', 'svr', 'nusvr', 'dt', 'gbrt', 'knn', 'rfr']
 
 class Regression:
     '''
@@ -36,8 +39,13 @@ class Regression:
         if self.__algorithm == 'nnet':   # Neural Network Regression
             self.__model = MLPRegressor(
                 solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1)
+        elif self.__algorithm == 'lsvr': # Linear SVR
+            self.__model = LinearSVR(random_state=0, tol=1e-5)
+            X, y = make_regression(n_features=self.__features,random_state=0)
         elif self.__algorithm == 'svr':  # SVR
-            self.__model = SVR(gamma=0.00001, C=1.0, epsilon=0.2)
+            self.__model = SVR(gamma=1e-5, C=1.0, epsilon=0.2)
+        elif self.__algorithm == 'nusvr': # NuSVR
+            self.__model = NuSVR(gamma=1e-5, C=1.0, nu=0.1)
         elif self.__algorithm == 'dt':   # Decision Tree
             self.__model = DecisionTreeRegressor()
         elif self.__algorithm == 'gbrt': # Gradient Boosted Regression Trees

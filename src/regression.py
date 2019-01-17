@@ -14,6 +14,9 @@ from sklearn.datasets import make_regression
 from sklearn.svm import NuSVR
 from sklearn.metrics import mean_squared_error
 from math import sqrt
+
+import matplotlib.pyplot as plt
+
 REG_ALGORITHMS = ['nnet', 'lsvr', 'svr', 'nusvr', 'dt', 'gbrt', 'knn', 'rfr']
 
 class Regression:
@@ -33,6 +36,7 @@ class Regression:
         X = np.loadtxt(self.__dbpath, delimiter=',', usecols=np.arange(0, self.__features),
                     skiprows=1)
         y = np.loadtxt(self.__dbpath, delimiter=',', usecols=(-1), skiprows=1)
+
         X_test, y_test = None, None
 
         '''
@@ -49,7 +53,8 @@ class Regression:
         elif self.__algorithm == 'nusvr': # NuSVR
             self.__model = NuSVR(gamma=1e-5, C=1.0, nu=0.1)
         elif self.__algorithm == 'dt':   # Decision Tree
-            self.__model = DecisionTreeRegressor()
+            self.__model = DecisionTreeRegressor(
+                min_samples_split=3, random_state=0, max_depth=6)
         elif self.__algorithm == 'gbrt': # Gradient Boosted Regression Trees
             self.__model = GradientBoostingRegressor(
                 n_estimators =  500, learning_rate = 0.01, loss = 'ls')
@@ -71,7 +76,6 @@ class Regression:
         # Root mean square error
         rms = sqrt(mean_squared_error(y_test, self.__model.predict(X_test)))
         #print(rms)
-
         #return X, X_test, y, y_test
 
     def predict(self, xarray):

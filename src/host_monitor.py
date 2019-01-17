@@ -109,7 +109,8 @@ class ClientSocket(object):
             message = data
             message.append(pool)
             
-            self.__socket.sendto(bytes(str(message), "utf-8"), self.__server_address)
+            #self.__socket.sendto(bytes(str(message), "utf-8"), self.__server_address)
+ 	    self.__socket.send(bytes(str(message), "utf-8"))
         finally:
             #print >>sys.stderr, 'closing socket'
             self.__socket.close()        

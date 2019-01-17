@@ -30,8 +30,9 @@ class Regression:
         self.__model = None
 
     def fit(self):
-        X = np.loadtxt(self.__dbpath, delimiter=',', usecols=np.arange(0, self.__features))
-        y = np.loadtxt(self.__dbpath, delimiter=',', usecols=(-1))
+        X = np.loadtxt(self.__dbpath, delimiter=',', usecols=np.arange(0, self.__features),
+                    skiprows=1)
+        y = np.loadtxt(self.__dbpath, delimiter=',', usecols=(-1), skiprows=1)
         X_test, y_test = None, None
 
         '''
@@ -65,10 +66,11 @@ class Regression:
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=90, shuffle=True)
 
         self.__model.fit(X_train, y_train)
+        #print(self.__model.feature_importances_)
 
         # Root mean square error
         rms = sqrt(mean_squared_error(y_test, self.__model.predict(X_test)))
-        print(rms)
+        #print(rms)
 
         #return X, X_test, y, y_test
 

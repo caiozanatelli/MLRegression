@@ -2,6 +2,7 @@ import numpy as np
 import csv
 
 RESOLUTIONS = ['240', '360', '480', '720', '1080']
+#RESOLUTIONS = ['1080']
 PATH_PREFIX = './base/'
 RES_BASE    = './resbase.csv'
 
@@ -37,6 +38,8 @@ if __name__ == '__main__':
             bases[i][j][-1] += obs_offset[i][j][-1]
 
     with open(RES_BASE, 'w') as final_csv:
+        final_csv.write('cpu_percentage,cpu_time,cpu_count,m_percentage,m_available,\
+                m_size,m_swap,net_traffic,frame_rate,resolution,PROCESSING_TIME\n')
         for row in bases:
             for elem in row:
                 count = 1

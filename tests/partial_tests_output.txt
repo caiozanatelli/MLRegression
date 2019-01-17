@@ -1,12 +1,16 @@
-$ python src/main.py -i tests/database_saturday.csv -a nnet
->>> [0.02555792]
-$ python src/main.py -i tests/database_saturday.csv -a svr
->>> [0.2200677]
-$ python src/main.py -i tests/database_saturday.csv -a dt
->>> [0.07346702]
-$ python src/main.py -i tests/database_saturday.csv -a gbrt
->>> [0.10960971]
-$ python src/main.py -i tests/database_saturday.csv -a knn
->>> [0.01503692]
-$ python src/main.py -i tests/database_saturday.csv -a rfr
->>> [0.21055689]
+COMMAND -  python3.5 src/main.py -i tests/base/database_1080.csv -a nnet
+>>> 0.20142168183679984
+COMMAND -  python3.5 src/main.py -i tests/base/database_1080.csv -a lsvr
+>>> 187.180426981009
+COMMAND -  python3.5 src/main.py -i tests/base/database_1080.csv -a svr
+>>> 0.2574240460141253
+COMMAND -  python3.5 src/main.py -i tests/base/database_1080.csv -a nusvr
+>>> 0.2171118037660574
+COMMAND -  python3.5 src/main.py -i tests/base/database_1080.csv -a dt
+>>> 0.017591219332916967
+COMMAND -  python3.5 src/main.py -i tests/base/database_1080.csv -a gbrt
+>>> 0.023453629435469407
+COMMAND -  python3.5 src/main.py -i tests/base/database_1080.csv -a knn
+>>> 0.07573315838149011
+COMMAND -  python3.5 src/main.py -i tests/base/database_1080.csv -a rfr
+>>> 0.01564833507679816

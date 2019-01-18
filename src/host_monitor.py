@@ -81,9 +81,9 @@ class HostMonitor():
 
         # Memory Usage
         #self.results["m_percentage"] = psutil.virtual_memory().percent
-        self.results["m_available"] = psutil.virtual_memory().available
+        self.results["m_available"] = int(psutil.virtual_memory().available)
         #self.results["m_size"] = psutil.virtual_memory().total
-        self.results["m_swap"] = psutil.swap_memory().used
+        self.results["m_swap"] = int(psutil.swap_memory().used)
 
         # Network
         network_traffic = psutil.net_io_counters().bytes_sent
@@ -100,7 +100,7 @@ class ClientSocket(object):
     """docstring for ClientSocket"""
     def __init__(self):
         self.__socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.__server_address = ('150.164.10.58', 10001)    
+        self.__server_address = ('192.168.0.52', 10001)    
         self.__socket.connect(self.__server_address)
 
     def sendData(self,data, pool):        
@@ -108,14 +108,13 @@ class ClientSocket(object):
             # Send data
             message = data
             message.append(pool)
-            
-            self.__socket.sendto(bytes(str(message), "utf-8"), self.__server_address)
+            print(str(message))    
+            #self.__socket.send(bytes(str(message), 'utf-8'))
+            self.__socket.sendto(bytes(str(message), 'utf-8'), self.__server_address)
         finally:
             #print >>sys.stderr, 'closing socket'
             self.__socket.close()        
 
-
-    
 
 if __name__ == '__main__':
 
@@ -135,6 +134,7 @@ if __name__ == '__main__':
     while True:
         clientSocket = ClientSocket()
         datatoSend = m.read_data()
+        #print('About to send this: ' + str(datatoSend))
         clientSocket.sendData(datatoSend, args.host)
         print(datatoSend)
         time.sleep(2)

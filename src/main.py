@@ -89,6 +89,7 @@ if __name__ == '__main__':
                     pools[pool] = t
                     #pools[poolSplit]
                     print(pools)
+                    print('Best choice for migration: ' + str(min(pools, key=pools.get)))
                     # Add output channel for response
                     #print(regression.predict([[1.7,2014202.7,3940237312,89915392,0.0001804828643798828,1547732123.2172844,1547732122.9963086
                   

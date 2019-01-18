@@ -107,8 +107,7 @@ class ClientSocket(object):
         try:
             # Send data
             message = data
-            message.append(pool)
-            print(str(message))    
+            message.append(pool)   
             #self.__socket.send(bytes(str(message), 'utf-8'))
             self.__socket.sendto(bytes(str(message), 'utf-8'), self.__server_address)
         finally:

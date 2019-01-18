@@ -7,6 +7,7 @@ import argparse
 import socket
 import sys
 import select
+from numpy import array
 #import Queue
 from multiprocessing import Queue
 
@@ -63,14 +64,13 @@ if __name__ == '__main__':
                 # Give the connection a queue for data we want to send
                 #message_queues[connection] = Queue.Queue()
             else:
-                data = s.recv(1024)
+                #data = s.recv(1024)
+                data = s.recv(1024).decode('utf-8')
                 if data:
-                    
                     #print(data)
                     # A readable client socket has data
                     #print >>sys.stderr, 'received "%s" from %s' % (data, s.getpeername())
                     #message_queues[s].put(data)
-                    #print(data)
                     cpu_percentage__ = data.split(',')[0]
                     cpu_percentage = str(cpu_percentage__).split('[')[1]
                     cpu_time = data.split(',')[1]
@@ -80,7 +80,8 @@ if __name__ == '__main__':
                     transmission_capture = data.split(',')[5]
                     transmission_observer = data.split(',')[6]                        
                     
-                    t = regression.predict([[cpu_percentage,cpu_time,m_available,m_swap,net_traffic,transmission_capture,transmission_observer]])
+                    t = regression.predict(array([[cpu_percentage,cpu_time,m_available,m_swap,net_traffic,
+                                           transmission_capture,transmission_observer]], dtype=float))
                     print(t)
                     poolSplit = str(data.split(',')[-1]).split(']')[0]
                     pool = poolSplit.split()[0]

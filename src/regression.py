@@ -34,8 +34,8 @@ class Regression:
 
     def fit(self):
         X = np.loadtxt(self.__dbpath, delimiter=',', usecols=np.arange(0, self.__features),
-                    skiprows=1)
-        y = np.loadtxt(self.__dbpath, delimiter=',', usecols=(-1), skiprows=1)
+                    skiprows=1, dtype=float)
+        y = np.loadtxt(self.__dbpath, delimiter=',', usecols=(-1), skiprows=1, dtype=float)
 
         X_test, y_test = None, None
 

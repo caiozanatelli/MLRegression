@@ -1,3 +1,15 @@
+'''
+#########################################################
+##            FEDERAL UNIVERSITY OF MINAS Gerais       ##
+##               COMPUTER SCIENCE DEPARTMENT           ##
+##               WIRELESS NETWORKS LABORATORY          ##
+##                                                     ##
+##      Authors: Caio Felipe Zanatelli                 ##
+##               Fábio Alves Pereira                   ##
+##               Marcos Magno de Carvalho              ##
+##                                                     ##
+#########################################################
+'''
 import numpy as np
 from sklearn import datasets
 from sklearn.svm import SVR

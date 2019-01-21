@@ -1,4 +1,15 @@
 #!/usr/bin/python3.6
+'''
+#########################################################
+##            FEDERAL UNIVERSITY OF MINAS Gerais       ##
+##               COMPUTER SCIENCE DEPARTMENT           ##
+##               WIRELESS NETWORKS LABORATORY          ##
+##                                                     ##
+##      Authors: Caio Felipe Zanatelli                 ##
+##               Marcos Magno de Carvalho              ##
+##                                                     ##
+#########################################################
+'''
 from regression import Regression
 from regression import REG_ALGORITHMS
 import csv

@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 '''
-    Autora: Fernanda Aparecida Rodrigues Silva
-    -------------------------------------
-    WINET - Wireless Networks Laboratory
-    Departamento de Ciencia da Computacao
-    Universidade Federal de Minas Gerais
-
+#########################################################
+##            FEDERAL UNIVERSITY OF MINAS Gerais       ##
+##               COMPUTER SCIENCE DEPARTMENT           ##
+##               WIRELESS NETWORKS LABORATORY          ##
+##                                                     ##
+##      Author: Fernanda Aparecida Rodrigues Silva     ##
+##                                                     ##
+#########################################################
 '''
-# IMPORTS
 import os
 import time
 import psutil
@@ -15,6 +16,13 @@ import subprocess
 import socket
 import sys
 import argparse
+
+def parse_args():
+    parser = argparse.ArgumentParser(description='Host Monitor')
+
+    parser.add_argument('-l', '--host', action='store', type=str, required=True,
+                        help='Host name')
+    return parser.parse_args()
 
 class HostMonitor():
     labels = ["cpu_percentage",
@@ -116,20 +124,9 @@ class ClientSocket(object):
 
 
 if __name__ == '__main__':
-
-
-    def parse_args():
-        parser = argparse.ArgumentParser(description='Host Monitor')
-
-        parser.add_argument('-l', '--host', action='store', type=str, required=True,
-                            help='Host name')
-        return parser.parse_args()
-
     args = parse_args()    
     m = HostMonitor()
     
-
-
     while True:
         clientSocket = ClientSocket()
         datatoSend = m.read_data()
@@ -137,4 +134,3 @@ if __name__ == '__main__':
         clientSocket.sendData(datatoSend, args.host)
         print(datatoSend)
         time.sleep(2)
-

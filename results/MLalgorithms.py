@@ -1,3 +1,13 @@
+'''
+#########################################################
+##            FEDERAL UNIVERSITY OF MINAS Gerais       ##
+##               COMPUTER SCIENCE DEPARTMENT           ##
+##               WIRELESS NETWORKS LABORATORY          ##
+##                                                     ##
+##      Authors: Marcos Magno de Carvalho              ##
+##                                                     ##
+#########################################################
+'''
 from pylab import *
 import numpy
 import matplotlib.pyplot as plt

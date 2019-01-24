@@ -1,14 +1,14 @@
 '''
-#########################################################
-##            FEDERAL UNIVERSITY OF MINAS Gerais       ##
-##               COMPUTER SCIENCE DEPARTMENT           ##
-##               WIRELESS NETWORKS LABORATORY          ##
-##                                                     ##
-##      Authors: Caio Felipe Zanatelli                 ##
-##               Fábio Alves Pereira                   ##
-##               Marcos Magno de Carvalho              ##
-##                                                     ##
-#########################################################
+########################################################
+##         FEDERAL UNIVERSITY OF MINAS GERAIS         ##
+##             COMPUTER SCIENCE DEPARTMENT            ##
+##             WIRELESS NETWORKS LABORATORY           ##
+##                                                    ##
+##           Author: Caio Felipe Zanatelli            ##
+##                   Fábio Alves Pereira              ##
+##                   Marcos Magno de Carvalho         ##
+##                                                    ##
+########################################################
 '''
 import numpy as np
 from sklearn import datasets

@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 '''
-#########################################################
-##            FEDERAL UNIVERSITY OF MINAS Gerais       ##
-##               COMPUTER SCIENCE DEPARTMENT           ##
-##               WIRELESS NETWORKS LABORATORY          ##
-##                                                     ##
-##      Author: Fernanda Aparecida Rodrigues Silva     ##
-##                                                     ##
-#########################################################
+########################################################
+##         FEDERAL UNIVERSITY OF MINAS GERAIS         ##
+##             COMPUTER SCIENCE DEPARTMENT            ##
+##             WIRELESS NETWORKS LABORATORY           ##
+##                                                    ##
+##     Author: Fernanda Aparecida Rodrigues Silva     ##
+##                                                    ##
+########################################################
 '''
 import os
 import time

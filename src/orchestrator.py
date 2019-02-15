@@ -1,5 +1,4 @@
 #!/usr/bin/python3.6
-''aaaaaa '
 ########################################################
 ##         FEDERAL UNIVERSITY OF MINAS GERAIS         ##
 ##             COMPUTER SCIENCE DEPARTMENT            ##
@@ -9,7 +8,6 @@
 ##                   Marcos Magno de Carvalho         ##
 ##                                                    ##
 ########################################################
-'''
 from regression import Regression
 from regression import REG_ALGORITHMS
 import csv

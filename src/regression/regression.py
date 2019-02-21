@@ -88,6 +88,7 @@ class Regression:
         # Root mean square error
         rms = sqrt(mean_squared_error(y_test, self.__model.predict(X_test)))
         #print(rms)
+        return rms
         #return X, X_test, y, y_test
 
     def predict(self, xarray):

@@ -1,10 +1,18 @@
+'''
+########################################################
+##         FEDERAL UNIVERSITY OF MINAS GERAIS         ##
+##             COMPUTER SCIENCE DEPARTMENT            ##
+##             WIRELESS NETWORKS LABORATORY           ##
+##                                                    ##
+##            Author: Caio Felipe Zanatelli           ##
+##                                                    ##
+########################################################
+'''
 import numpy as np
+import argparse
 import csv
 
-RESOLUTIONS = ['240', '360', '480', '720', '1080']
-#RESOLUTIONS = ['1080']
-PATH_PREFIX = './base/'
-RES_BASE    = './resbase.csv'
+RESOLUTIONS = ['240', '360', '480', '720']
 
 def load_csv(path, skiprow=None):
     data = []
@@ -23,13 +31,31 @@ def load_csv(path, skiprow=None):
     return data
 
 if __name__ == '__main__':
+    # Get useful arguments
+    parser = argparse.ArgumentParser(description='Database joiner')
+    parser.add_argument('--base-path', '-b', type=str, action='store',
+                        default='./real/ufmg/', help='Database path')
+    parser.add_argument('--prefix', '-p', type=str, action='store',
+                        default='database_', help='Database files prefix')
+    parser.add_argument('--res', '-r', type=str, action='store',
+                        default='./resbase.csv', help='Final database')
+    args = parser.parse_args()
+
+    if args.base_path[-1] != '/': args.base_path += '/'
+
     bases = []
     trans_offset = []
     obs_offset = []
     for res in RESOLUTIONS:
-        bases.append(load_csv(PATH_PREFIX + 'database_' + res + '.csv'))
-        trans_offset.append(load_csv(PATH_PREFIX + 'transmission_capture_' + res + '.csv'))
-        obs_offset.append(load_csv(PATH_PREFIX + 'transmission_observer_' + res + '.csv'))
+        bases.append(load_csv('{}{}_{}_database.csv'.format(args.base_path, args.prefix, res)))
+        trans_offset.append(load_csv('{}{}_{}_transmission_capture.csv'.format(
+                            args.base_path, args.prefix, res)))
+        obs_offset.append(load_csv('{}{}_{}_transmission_observer.csv'.format(
+                            args.base_path, args.prefix, res)))
+
+        #bases.append(load_csv(args.base_path + args.prefix + res + '.csv'))
+        #trans_offset.append(load_csv(args.base_path + 'transmission_capture_' + res + '.csv'))
+        #obs_offset.append(load_csv(args.base_path + 'transmission_observer_' + res + '.csv'))
 
     for i in range(len(bases)):
         for j in range(1, len(bases[i])):
@@ -37,7 +63,7 @@ if __name__ == '__main__':
             bases[i][j][-1] += trans_offset[i][j][-1]
             bases[i][j][-1] += obs_offset[i][j][-1]
 
-    with open(RES_BASE, 'w') as final_csv:
+    with open(args.res, 'w') as final_csv:
         final_csv.write('cpu_percentage,cpu_time,cpu_count,m_percentage,m_available,\
                 m_size,m_swap,net_traffic,frame_rate,resolution,PROCESSING_TIME\n')
         for row in bases:
@@ -50,3 +76,4 @@ if __name__ == '__main__':
                         final_csv.write(',')
                     count += 1
                 final_csv.write('\n')
+    

@@ -16,6 +16,8 @@ import argparse
 import socket
 import sys
 import select
+import configparser
+from call_apiCopa import APICopa
 from numpy import array
 #import Queue
 from multiprocessing import Queue
@@ -29,10 +31,42 @@ def parse_args():
                         help='Regression algorithm to be used for prediction')
     parser.add_argument('-f', '--features', action='store', type=int, default=10,
                         help='Number of features in the database')
+    parser.add_argument('-x', action='store', type=float, default=0.5, help='Define the tolerance')
+    parser.add_argument('--fps', action='store', type=int, default=30, help='Default fps')
+
     return parser.parse_args()
 
+def get_locus(conf_file = 'pools.conf'):
+    config = configparser.ConfigParser()   
+
+    try:
+        config.read(conf_file)
+        return config['POOLS']['pool1'], config['POOLS']['pool2']
+
+    except FileExistsError as e:
+        print("Warning: Configuration File not found. Using default values")
+
+def is_edge(pool):
+    return get_locus()[0] == pool
+
+def is_cloud(pool):
+    return get_locus()[1] == pool
+
+def migrate(pools, tolerance_predict):
+    time_edge, time_cloud = pools[get_locus()[0]], pools[get_locus()[1]] 
+
+    if is_edge(pool_locus) and time_edge >= tolerance_predict:
+        pool_destination = min(pools, key=pools.get)
+    elif is_cloud(pool_locus) and time_cloud < tolerance_predict:
+        pool_destination = get_locus()[0]
+
+    if pool_destination != pool_locus: 
+        APICopa.migrate(pool_locus, pool_destination)
+        pool_locus = pool_destination
 
 if __name__ == '__main__':
+    global pool_locus
+    pool_locus = get_locus()[0]
 
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.setblocking(0)
@@ -98,7 +132,8 @@ if __name__ == '__main__':
                     pools[pool] = t
                     #pools[poolSplit]
                     print(pools)
-                    print('Best choice for migration: ' + str(min(pools, key=pools.get)))
+
+                    migrate(pools, args.x/args.fps)
                     # Add output channel for response
                     #print(regression.predict([[1.7,2014202.7,3940237312,89915392,0.0001804828643798828,1547732123.2172844,1547732122.9963086
                   
@@ -115,5 +150,3 @@ if __name__ == '__main__':
                     s.close()
                     # Remove message queue
                     #del message_queues[s]
-
-

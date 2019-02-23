@@ -80,7 +80,7 @@ def migrate(pools, tolerance_predict):
 
 if __name__ == '__main__':
     global pool_locus
-    pool_locus = get_locus()[0]
+    pool_locus = get_locus()[1]
 
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.setblocking(0)

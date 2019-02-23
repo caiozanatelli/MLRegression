@@ -53,24 +53,38 @@ def is_cloud(pool):
     return get_locus()[1] == pool
 
 def migrate(pools, tolerance_predict):
-    time_edge, time_cloud = pools[get_locus()[0]], pools[get_locus()[1]] 
+    #time_edge, time_cloud = pools[get_locus()[0]], pools[get_locus()[1]]
+    global pool_locus
+    time_edge, time_cloud = 0,0
+    try:
+        time_edge = pools[get_locus()[0]]
+    except KeyError:
+        pools[get_locus()[0]] = 999999999
 
+    try:
+        time_cloud = pools[get_locus()[1]]
+    except KeyError:
+        pools[get_locus()[1]] = 999999999
+
+    pool_destination = pool_locus
     if is_edge(pool_locus) and time_edge >= tolerance_predict:
         pool_destination = min(pools, key=pools.get)
     elif is_cloud(pool_locus) and time_cloud < tolerance_predict:
         pool_destination = get_locus()[0]
 
-    if pool_destination != pool_locus: 
-        APICopa.migrate(pool_locus, pool_destination)
+    if pool_destination != pool_locus:
+        print("Pool Locus", pool_locus)
+        print("Pool Desti", pool_destination) 
+        APICopa().migrateContainer(pool_locus, pool_destination.replace("\'",""))
         pool_locus = pool_destination
 
 if __name__ == '__main__':
     global pool_locus
-    pool_locus = get_locus()[0]
+    pool_locus = get_locus()[1]
 
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.setblocking(0)
-    server_address = ('192.168.0.52', 10001)
+    server_address = ('10.0.0.3', 10001)
     server.bind(server_address)
     server.listen(5)
     inputs = [server]

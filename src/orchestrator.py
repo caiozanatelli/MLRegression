@@ -17,7 +17,7 @@ import socket
 import sys
 import select
 import configparser
-from call_apiCopa import APICopa
+from copa_api import APICopa
 from numpy import array
 #import Queue
 from multiprocessing import Queue

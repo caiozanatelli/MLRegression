@@ -13,7 +13,7 @@ import argparse
 import csv
 
 RESOLUTIONS = ['240', '360', '480', '720']
-LOAD = ['sc']
+LOAD = ['sc', 'cc']
 FPS  = [10, 30]
 
 def load_csv(path, skiprow=None):

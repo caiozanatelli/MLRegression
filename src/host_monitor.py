@@ -32,9 +32,10 @@ class HostMonitor():
               "m_available",
               #"m_size",
               "m_swap",
-              "net_traffic",
-              "time_between_frames_in",
-              "time_between_frames_out"]
+              "frame_rate"]
+              #"net_traffic",
+              #"time_between_frames_in",
+              #"time_between_frames_out"]
 
     num_vars = len(labels)
     results = {}
@@ -92,15 +93,16 @@ class HostMonitor():
         self.results["m_available"] = int(psutil.virtual_memory().available)
         #self.results["m_size"] = psutil.virtual_memory().total
         self.results["m_swap"] = int(psutil.swap_memory().used)
+        self.results["frame_rate"] = 0 # Need to capture this info
 
         # Network
-        network_traffic = psutil.net_io_counters().bytes_sent
-        network_traffic += psutil.net_io_counters().bytes_recv
-        self.results["net_traffic"] = (network_traffic - network_reference)
-        self.results["net_traffic"] /= 1048576. * 8
+        #network_traffic = psutil.net_io_counters().bytes_sent
+        #network_traffic += psutil.net_io_counters().bytes_recv
+        #self.results["net_traffic"] = (network_traffic - network_reference)
+        #self.results["net_traffic"] /= 1048576. * 8
 
         # Processing
-        self.get_time_between_frames()
+        #self.get_time_between_frames()
         return self.convert_dict_to_list(self.results)
 
 

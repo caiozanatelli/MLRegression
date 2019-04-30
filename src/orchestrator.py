@@ -84,7 +84,7 @@ if __name__ == '__main__':
 
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.setblocking(0)
-    server_address = ('10.0.0.2', 10001)
+    server_address = ('192.168.0.52', 10001)
     server.bind(server_address)
     server.listen(5)
     inputs = [server]
@@ -141,7 +141,6 @@ if __name__ == '__main__':
                     #t = regression.predict(array([[cpu_percentage,cpu_time,m_available,m_swap,net_traffic,
                     #                       transmission_capture,transmission_observer]], dtype=float))
                     t = regression.predict(array([[cpu_percentage,cpu_time,m_available,m_swap,frame_rate]], dtype=float))
-
                     print(t)
                     poolSplit = str(data.split(',')[-1]).split(']')[0]
                     pool = poolSplit.split()[0]

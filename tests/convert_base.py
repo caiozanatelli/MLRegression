@@ -13,7 +13,7 @@ import argparse
 import csv
 
 RESOLUTIONS = ['240', '360', '480', '720']
-LOAD = ['sc', 'cc']
+LOAD = ['cc']
 FPS  = [10, 30]
 
 def load_csv(path, skiprow=None):
@@ -57,7 +57,18 @@ if __name__ == '__main__':
     for res in args.res:
         for fps in args.fps:
             for load in args.load:
-                name = '{}{}_{}_{}fps_{}_'.format(args.base_path, args.pool, res, fps, load)
+                #name = '{}{}_{}_{}fps_{}_'.format(args.base_path, args.pool, res, fps, load)
+                #name = '{}{}_{}_{}fps_{}_'.format(args.base_path, args.pool, fps, load, res)
+                #######name = '{}_{}_{}_{}'.format(args.pool, fps, load, res)
+                #bases.append(load_csv(name + 'database.csv'))
+                #######print(args.base_path + str(fps) + '_' + str(load) + '_' + str(res) + '_database.csv')
+
+                #######bases.append(load_csv(args.base_path + str(fps) + '_' + str(load) + '_' + str(res) + '_database.csv'))
+                #######trans_offset.append(load_csv(args.base_path + 'transmission_capture_' + name + '.csv'))
+                #######obs_offset.append(load_csv(args.base_path  + 'transmission_observer_' + name + '.csv'))
+                
+                name = '{}{}_{}_'.format(args.base_path, res, load)
+                print(name + 'database.csv')
                 bases.append(load_csv(name + 'database.csv'))
                 trans_offset.append(load_csv(name + 'transmission_capture.csv'))
                 obs_offset.append(load_csv(name + 'transmission_observer.csv'))
@@ -74,6 +85,9 @@ if __name__ == '__main__':
 
     for i in range(len(bases)):
         for j in range(1, len(bases[i])):
+            print(i, j)
+            #print(bases[i][j])
+
             #print(bases[i][j][-1])
             bases[i][j][-1] += trans_offset[i][j][-1]
             bases[i][j][-1] += obs_offset[i][j][-1]

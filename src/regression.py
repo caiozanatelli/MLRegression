@@ -56,7 +56,7 @@ class Regression:
         '''
         if self.__algorithm == 'nnet':   # Neural Network Regression
             self.__model = MLPRegressor(
-                solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(6, 2), random_state=1)
+                solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1)
         elif self.__algorithm == 'lsvr': # Linear SVR
             self.__model = LinearSVR(random_state=0, tol=1e-5)
             X, y = make_regression(n_features=self.__features,random_state=0)
@@ -73,8 +73,8 @@ class Regression:
         elif self.__algorithm == 'knn':  # K-Nearest Neighbors Regression
             self.__model = KNeighborsRegressor(n_neighbors = 5)
         elif self.__algorithm == 'rfr':
-            self.__model = RandomForestRegressor(
-                n_estimators=100, criterion='mse', max_features='sqrt')
+            self.__model = RandomForestRegressor(n_estimators=100, criterion='mse', 
+                max_features='sqrt')
         else:
             print('Error. Algorithm not available.')
             sys.exit(1)

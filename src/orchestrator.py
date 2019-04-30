@@ -29,7 +29,7 @@ def parse_args():
     parser.add_argument('-a', '--algorithm', action='store', type=str,
                         choices=REG_ALGORITHMS, default='nnet',
                         help='Regression algorithm to be used for prediction')
-    parser.add_argument('-f', '--features', action='store', type=int, default=6,
+    parser.add_argument('-f', '--features', action='store', type=int, default=5,
                         help='Number of features in the database')
     parser.add_argument('-x', action='store', type=float, default=0.5, help='Define the tolerance')
     parser.add_argument('--fps', action='store', type=int, default=30, help='Default fps')

@@ -29,7 +29,7 @@ def parse_args():
     parser.add_argument('-a', '--algorithm', action='store', type=str,
                         choices=REG_ALGORITHMS, default='nnet',
                         help='Regression algorithm to be used for prediction')
-    parser.add_argument('-f', '--features', action='store', type=int, default=10,
+    parser.add_argument('-f', '--features', action='store', type=int, default=6,
                         help='Number of features in the database')
     parser.add_argument('-x', action='store', type=float, default=0.5, help='Define the tolerance')
     parser.add_argument('--fps', action='store', type=int, default=30, help='Default fps')
@@ -84,7 +84,7 @@ if __name__ == '__main__':
 
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.setblocking(0)
-    server_address = ('10.0.0.3', 10001)
+    server_address = ('10.0.0.2', 10001)
     server.bind(server_address)
     server.listen(5)
     inputs = [server]
@@ -133,12 +133,15 @@ if __name__ == '__main__':
                     cpu_time = data.split(',')[1]
                     m_available = data.split(',')[2]
                     m_swap = data.split(',')[3]
-                    net_traffic = data.split(',')[4]
-                    transmission_capture = data.split(',')[5]
-                    transmission_observer = data.split(',')[6]                        
+                    frame_rate = data.split(',')[4]
+                    #net_traffic = data.split(',')[4]
+                    #transmission_capture = data.split(',')[5]
+                    #transmission_observer = data.split(',')[6]                        
                     
-                    t = regression.predict(array([[cpu_percentage,cpu_time,m_available,m_swap,net_traffic,
-                                           transmission_capture,transmission_observer]], dtype=float))
+                    #t = regression.predict(array([[cpu_percentage,cpu_time,m_available,m_swap,net_traffic,
+                    #                       transmission_capture,transmission_observer]], dtype=float))
+                    t = regression.predict(array([[cpu_percentage,cpu_time,m_available,m_swap,frame_rate]], dtype=float))
+
                     print(t)
                     poolSplit = str(data.split(',')[-1]).split(']')[0]
                     pool = poolSplit.split()[0]
@@ -147,7 +150,7 @@ if __name__ == '__main__':
                     #pools[poolSplit]
                     print(pools)
 
-                    migrate(pools, args.x/args.fps)
+                    #migrate(pools, args.x/args.fps)
                     # Add output channel for response
                     #print(regression.predict([[1.7,2014202.7,3940237312,89915392,0.0001804828643798828,1547732123.2172844,1547732122.9963086
                   

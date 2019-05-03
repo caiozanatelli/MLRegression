@@ -97,7 +97,8 @@ class HostMonitor():
         #self.results["m_size"] = psutil.virtual_memory().total
         self.results["m_swap"] = int(psutil.swap_memory().used)
         #self.results["frame_rate"] = 0 # Need to capture this info
-        self.results["frame_rate"] = int(1/self.get_time_between_frames())
+        time_between_frames = self.get_time_between_frames()
+        self.results["frame_rate"] = 0 if time_between_frames == 0 else int(1/time_between_frames)
         # Network
         #network_traffic = psutil.net_io_counters().bytes_sent
         #network_traffic += psutil.net_io_counters().bytes_recv

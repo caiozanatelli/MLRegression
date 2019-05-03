@@ -24,8 +24,10 @@ from multiprocessing import Queue
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Machine Learning Regression Module')
-    parser.add_argument('-i', '--input', action='store', type=str, required=True,
-                        help='CSV input database path')
+    parser.add_argument('--bufmg', action='store', type=str, default='../tests/ufmg_norm.csv',
+                        help='CSV input database path for UFMG pool')
+    parser.add_argument('--bufrgs', action='store', type=str, default='../tests/ufrgs_norm.csv',
+                        help='CSV input database path for UFRGS pool')
     parser.add_argument('-a', '--algorithm', action='store', type=str,
                         choices=REG_ALGORITHMS, default='nnet',
                         help='Regression algorithm to be used for prediction')
@@ -95,8 +97,10 @@ if __name__ == '__main__':
     # Start connection
 
     # Build model
-    regression = Regression(args.input, args.algorithm, args.features)
-    regression.fit()
+    model_ufmg = Regression(args.bufmg, args.algorithm, args.features)
+    model_ufrgs = Regression(args.bufrgs, args.algorithm, args.features)
+    model_ufmg.fit()
+    model_ufrgs.fit()
     # Train model
     
     # Predict output
@@ -140,11 +144,15 @@ if __name__ == '__main__':
                     
                     #t = regression.predict(array([[cpu_percentage,cpu_time,m_available,m_swap,net_traffic,
                     #                       transmission_capture,transmission_observer]], dtype=float))
-                    t = regression.predict(array([[cpu_percentage,cpu_time,m_available,m_swap,frame_rate]], dtype=float))
-                    print(t)
+                    
+                    #t = regression.predict(array([[cpu_percentage,cpu_time,m_available,m_swap,frame_rate]], dtype=float))
+                    #print(t)
                     poolSplit = str(data.split(',')[-1]).split(']')[0]
                     pool = poolSplit.split()[0]
-                    print(pool)
+                    #print(pool)
+                    features = array([[cpu_percentage, cpu_time, m_available, m_swap, frame_rate]], dtype=float)
+                    t = model_ufmg.predict(features) if pool == "\'UFMG\'" else model_ufrgs.predict(features)
+                    #print(t)
                     pools[pool] = t
                     #pools[poolSplit]
                     print(pools)

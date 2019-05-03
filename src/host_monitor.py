@@ -58,13 +58,16 @@ class HostMonitor():
         init_time = time.time()
         #res = subprocess.run(['scp', self.CAPTURE + ":" + self.frame_file, '.'], stdout=devnull)
         last_time = time.time() - init_time
-        self.results["time_between_frames_in"] = last_time
+        #self.results["time_between_frames_in"] = last_time
+        time_in = last_time
         init_time = time.time()
         #res = subprocess.run(['scp', "frame.png", self.OBSERVER + ":~/"], stdout=devnull)
         last_time = time.time() - init_time
-        self.results["time_between_frames_out"] = last_time
+        time_out = last_time
+        time_between_frames = time_in - time_out
+        print(time_between_frames)
         devnull.close()
-        print(self.results)
+        return time_between_frames
 
     def read_data(self):
         # isNewFile = False
@@ -93,8 +96,8 @@ class HostMonitor():
         self.results["m_available"] = int(psutil.virtual_memory().available)
         #self.results["m_size"] = psutil.virtual_memory().total
         self.results["m_swap"] = int(psutil.swap_memory().used)
-        self.results["frame_rate"] = 0 # Need to capture this info
-
+        #self.results["frame_rate"] = 0 # Need to capture this info
+        self.results["frame_rate"] = int(1/self.get_time_between_frames())
         # Network
         #network_traffic = psutil.net_io_counters().bytes_sent
         #network_traffic += psutil.net_io_counters().bytes_recv
@@ -102,7 +105,7 @@ class HostMonitor():
         #self.results["net_traffic"] /= 1048576. * 8
 
         # Processing
-        #self.get_time_between_frames()
+        #self.results["" self.get_time_between_frames()
         return self.convert_dict_to_list(self.results)
 
 
